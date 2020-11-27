@@ -1,4 +1,4 @@
-package com.github.ash65000.avro;
+package com.github.ash65000.avro.generic;
 
 import java.io.File;
 import java.io.IOException;
