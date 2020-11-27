@@ -4,8 +4,10 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.avro.Schema;
+import org.apache.avro.file.DataFileReader;
 import org.apache.avro.file.DataFileWriter;
 import org.apache.avro.generic.*;
+import org.apache.avro.io.DatumReader;
 import org.apache.avro.io.DatumWriter;
 
 class GenericRecordExamples {
@@ -56,7 +58,24 @@ class GenericRecordExamples {
         }
 
         // Step 3: read a generic record form a file
+        final File file = new File("customer-generic.avro");
+        final DatumReader<GenericRecord> datumReader = new GenericDatumReader<>();
+        GenericRecord customerRead;
+        try (DataFileReader<GenericRecord> dataFileReader = new DataFileReader<>(file, datumReader)) {
+            while (dataFileReader.hasNext()) {
+                customerRead = dataFileReader.next();
+                System.out.println("Successfully read avro file");
+                System.out.println(customerRead.toString());
 
+                // get the data from the generic record
+                System.out.println("First name: " + customerRead.get("first_name"));
+
+                // read a non existent field
+                // System.out.println("Non existent field: " + customerRead.get("not_here"));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         // Step 4: interpret as a generic record
     }
 }
