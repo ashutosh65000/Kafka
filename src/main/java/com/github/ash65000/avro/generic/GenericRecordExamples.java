@@ -66,7 +66,7 @@ class GenericRecordExamples {
                 customerRead = dataFileReader.next();
                 System.out.println("Successfully read avro file");
                 System.out.println(customerRead.toString());
-
+                // Step 4: interpret as a generic record
                 // get the data from the generic record
                 System.out.println("First name: " + customerRead.get("first_name"));
 
@@ -76,6 +76,5 @@ class GenericRecordExamples {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        // Step 4: interpret as a generic record
     }
 }
